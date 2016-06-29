@@ -5,13 +5,14 @@ A plugin to handle punctuation-delimited values for jQuery.
 
 `jquery-csv` defines two functions for working with delimited values.
 
-##### $.parseDV(string, delimiter):  
+##### $.parseDV(string, delimiter, mode):  
 `string`: a string of punctuation-delimited files.
 
 `delimiter`: a string by which the values are delimited. defaults to `','`
 
-returns false if the string isn't in the form `val1,val2,val3,val4`. (the role of `delimiter` in the above string is played by a comma.) otherwise, returns an object like
-:
+`mode`: pass the string `'array'` in the third position to get your results as a flat array rather than an object.
+
+returns false if the string isn't in the form `val1,val2,val3,val4`. (the role of `delimiter` in the above string is played by a comma.) otherwise, returns an object like:
 
     {
       0: 'val1',
@@ -19,6 +20,15 @@ returns false if the string isn't in the form `val1,val2,val3,val4`. (the role o
       2: 'val3',
       3: 'val4'
     }
+
+if you passed `'array'` in position three, it will return an array like this:
+
+    [
+      'val1',
+      'val2',
+      'val3',
+      'val4
+    ]
 
 ##### $.stringifyDV(collection, delimiter):
 
