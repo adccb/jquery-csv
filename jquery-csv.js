@@ -1,30 +1,26 @@
 (function ( $ ) {
-  $.parseCSV = function(csv) {
-    var obj, array, i
+  $.parseDV = function(string, delimiter) {
+    if(typeof delimiter === 'undefined') delimiter = ','
 
-    array = csv.split(',')
-    obj = {}
-    for(i = 0; i < array.length; i++) {
+    // sanity checking
+    var regex = new RegExp(`^([A-z0-9]+[${delimiter}])+[A-z0-9]+$`)
+    if( regex.test(string) === false ) return false
+
+    // compile obj
+    var array = string.split(delimiter)
+    var obj = {}
+    for(var i = 0; i < array.length; i++) {
       obj[i] = array[i];
     }
+
     return obj
   }
 
-  $.stringifyCSV = function(collection) {
-    var string, i
+  $.stringifyDV = function(collection, delimiter) {
+    // sanity checking
+    if( !Array.isArray(collection) ) return false
 
-    string = ''
-    if(Array.isArray(collection)) { // it's an array
-      string += collection.join(',')
-    }
-    else { // it's an object
-      var keys = Object.keys(collection)
-      for(i = 0; i < keys.length; i++) {
-        i == keys.length - 1 ?
-          string += (collection[keys[i]]) :     // if it's the last in the array, just add
-          string += (collection[keys[i]] + ',') // else add a comma too
-      }
-    }
-    return string
+    typeof delimiter === 'undefined' ? delimiter = ',' : ''
+    return collection.join(delimiter)
   }
 } (jQuery) )
